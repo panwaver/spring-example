@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 线程池工具类
@@ -68,8 +65,14 @@ public class ThreadPoolUtils {
                 new ArrayBlockingQueue<>(200),
                 // 线程创建工厂 实现ThreadFactory
                 new ThreadFactoryBuilder().setNameFormat("datax-web-pool-custom-thread-%d").build(),
+//                new ThreadFactory() {
+//                    @Override
+//                    public Thread newThread(Runnable r) {
+//                        return new Thread(r, "t_pl_pool_" + r.hashCode());
+//                    }
+//                },
                 // 拒绝策略 实现RejectedExecutionHandler=>改为直接抛出异常
-                new ThreadPoolExecutor.AbortPolicy() /*{
+                new ThreadPoolExecutor.CallerRunsPolicy() /*{
                     @Override
                     public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
                         LOGGER.error("======{}线程任务{}执行DiscardPolicy拒绝策略,isShutdown={},isTerminating={},isTerminated={},",
