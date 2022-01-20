@@ -16,7 +16,7 @@ public class ListNodeUtils {
      */
     public static void print(ListNode listNode) {
         for (ListNode l = listNode; l != null; l = l.next) {
-            System.out.println(l.val);
+            System.out.print(l.val+",");
         }
     }
 
