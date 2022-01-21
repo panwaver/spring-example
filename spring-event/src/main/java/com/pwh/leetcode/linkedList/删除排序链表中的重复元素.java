@@ -18,7 +18,7 @@ public class 删除排序链表中的重复元素 {
                     // slow++;
                     slow = slow.next;
                 }
-                // slow++;
+                // fast++;
                 fast = fast.next;
             }
             // 断开与后面重复元素的连接
